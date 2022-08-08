@@ -1,0 +1,23 @@
+// This file is part of coursework 1 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/**
+ * 8-way or gate:
+ * out = x[0] or x[1] or ... or x[7].
+ */
+
+CHIP Or8Way {
+    IN x[8];
+    OUT out;
+
+    PARTS:
+    Or(x=x[0],y=x[1],out=OR1);
+    Or(x=x[2],y=x[3],out=OR2);
+    Or(x=x[4],y=x[5],out=OR3);
+    Or(x=x[6],y=x[7],out=OR4);
+    Or(x=OR1,y=OR2,out=OR5);
+    Or(x=OR3,y=OR4,out=OR6);
+    Or(x=OR5,y=OR6,out=out);
+}

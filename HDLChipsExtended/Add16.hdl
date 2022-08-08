@@ -1,0 +1,32 @@
+// This file is part of coursework 2 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/*
+ * Adds two 16-bit values.
+ * The most-significant carry bit is ignored.
+ */
+
+CHIP Add16 {
+    IN x[16], y[16];
+    OUT out[16];
+
+    PARTS:
+    HalfAdder(x=x[0], y=y[0], sum=out[0], carry=Carry1st);
+    FullAdder(x=x[1], y=y[1], z=Carry1st, sum=out[1], carry=Carry2nd);
+    FullAdder(x=x[2], y=y[2], z=Carry2nd, sum=out[2], carry=Carry3rd);
+    FullAdder(x=x[3], y=y[3], z=Carry3rd, sum=out[3], carry=Carry4th);
+    FullAdder(x=x[4], y=y[4], z=Carry4th, sum=out[4], carry=Carry5th);
+    FullAdder(x=x[5], y=y[5], z=Carry5th, sum=out[5], carry=Carry6th);
+    FullAdder(x=x[6], y=y[6], z=Carry6th, sum=out[6], carry=Carry7th);
+    FullAdder(x=x[7], y=y[7], z=Carry7th, sum=out[7], carry=Carry8th);
+    FullAdder(x=x[8], y=y[8], z=Carry8th, sum=out[8], carry=Carry9th);
+    FullAdder(x=x[9], y=y[9], z=Carry9th, sum=out[9], carry=Carry10th);
+    FullAdder(x=x[10], y=y[10], z=Carry10th, sum=out[10], carry=Carry11th);
+    FullAdder(x=x[11], y=y[11], z=Carry11th, sum=out[11], carry=Carry12th);
+    FullAdder(x=x[12], y=y[12], z=Carry12th, sum=out[12], carry=Carry13th);
+    FullAdder(x=x[13], y=y[13], z=Carry13th, sum=out[13], carry=Carry14th);
+    FullAdder(x=x[14], y=y[14], z=Carry14th, sum=out[14], carry=Carry15th);
+    FullAdder(x=x[15], y=y[15], z=Carry15th, sum=out[15], carry=Carry16th);
+}

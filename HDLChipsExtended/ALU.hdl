@@ -1,0 +1,44 @@
+// This file is part of coursework 2 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+
+/**
+ * The ALU. Computes one of the following functions:
+ * x+y, x-y, y-x, 0, 1, -1, x, y, -x, -y, !x, !y,
+ * x+1, y+1, x-1, y-1, x&y, x|y on two 16-bit inputs,
+ * according to 6 input bits denoted zx,nx,zy,ny,f,no.
+ * The bit-combinations that yield each function are
+ * documented in the book. In addition, the ALU
+ * computes two 1-bit outputs: if the ALU output
+ * is 0, zr is set to 1; otherwise zr is set to 0;
+ * If out<0, ng is set to 1; otherwise ng is set to 0.
+ */
+
+CHIP ALU {
+    IN x[16], y[16], zx, nx, zy, ny, f, no;
+    OUT out[16], zr, ng;
+
+    PARTS:
+   Mux16(x=x, sel=zx, out=MuxOut);
+   Not16(x=MuxOut, out=NotMuxOut);
+   Mux16(x=MuxOut, y=NotMuxOut, sel=nx, out=MuxOut2);
+
+   Mux16(x=y, sel=zy, out=Mux2Out);
+   Not16(x=Mux2Out, out=NotMux2Out);
+   Mux16(x=Mux2Out, y=NotMux2Out, sel=ny, out=Mux2Out2);
+
+   And16(x=MuxOut2, y=Mux2Out2, out=Andxy);
+   Add16(x=MuxOut2, y=Mux2Out2, out=Addxy);
+   Mux16(x=Andxy, y=Addxy, sel=f, out=fxy);
+
+   Not16(x=fxy, out=Notfxy);
+   Mux16(x=fxy, y=Notfxy, sel=no, out[0..7]=LeftValue, out[8..15]=RightValue, out[15]=ng, out=out);
+
+   Or8Way(x=LeftValue, out=LeftOr);
+   Or8Way(x=RightValue, out=RightOr);
+   Or(x=LeftOr, y=RightOr, out=Notzr);
+   Not(x=Notzr, out=zr);
+
+}

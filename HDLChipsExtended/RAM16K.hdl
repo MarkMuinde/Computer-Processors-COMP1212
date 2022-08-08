@@ -1,0 +1,24 @@
+// This file is part of coursework 2 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/**
+ * Memory of 16K registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load=1, then
+ * the x value is loaded into the memory location specified by address
+ * (the loaded value will be emitted to out after the next time step.)
+ */
+
+CHIP RAM16K {
+    IN x[16], load, address[14];
+    OUT out[16];
+
+    PARTS:
+    DMux4Way(in=load, sel=address[0..1], w=LoadW, x=LoadX, y=LoadY, z=LoadZ);
+    RAM4K(x=x, load=LoadW, address=address[2..13], out=out0);
+    RAM4K(x=x, load=LoadX, address=address[2..13], out=out1);
+    RAM4K(x=x, load=LoadY, address=address[2..13], out=out2);
+    RAM4K(x=x, load=LoadZ, address=address[2..13], out=out3);
+    Mux4Way16(w=out0, x=out1, y=out2, z=out3, sel=address[0..1], out=out);
+}

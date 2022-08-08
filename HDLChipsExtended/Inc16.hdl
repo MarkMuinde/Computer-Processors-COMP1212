@@ -1,0 +1,31 @@
+// This file is part of coursework 2 for COMP1212
+// which follows the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// Written by Sam Wilson
+
+/**
+ * 16-bit incrementer: out = x + 1 (arithmetic addition)
+ */
+
+CHIP Inc16 {
+    IN x[16];
+    OUT out[16];
+
+    PARTS:
+    HalfAdder(x=x[0], y=true, sum=out[0], carry=HalfAdderCarry1);
+    HalfAdder(x=x[1], y=HalfAdderCarry1, sum=out[1], carry=HalfAdderCarry2);
+    HalfAdder(x=x[2], y=HalfAdderCarry2, sum=out[2], carry=HalfAdderCarry3);
+    HalfAdder(x=x[3], y=HalfAdderCarry3, sum=out[3], carry=HalfAdderCarry4);
+    HalfAdder(x=x[4], y=HalfAdderCarry4, sum=out[4], carry=HalfAdderCarry5);
+    HalfAdder(x=x[5], y=HalfAdderCarry5, sum=out[5], carry=HalfAdderCarry6);
+    HalfAdder(x=x[6], y=HalfAdderCarry6, sum=out[6], carry=HalfAdderCarry7);
+    HalfAdder(x=x[7], y=HalfAdderCarry7, sum=out[7], carry=HalfAdderCarry8);
+    HalfAdder(x=x[8], y=HalfAdderCarry8, sum=out[8], carry=HalfAdderCarry9);
+    HalfAdder(x=x[9], y=HalfAdderCarry9, sum=out[9], carry=HalfAdderCarry10);
+    HalfAdder(x=x[10], y=HalfAdderCarry10, sum=out[10], carry=HalfAdderCarry11);
+    HalfAdder(x=x[11], y=HalfAdderCarry11, sum=out[11], carry=HalfAdderCarry12);
+    HalfAdder(x=x[12], y=HalfAdderCarry12, sum=out[12], carry=HalfAdderCarry13);
+    HalfAdder(x=x[13], y=HalfAdderCarry13, sum=out[13], carry=HalfAdderCarry14);
+    HalfAdder(x=x[14], y=HalfAdderCarry14, sum=out[14], carry=HalfAdderCarry15);
+    HalfAdder(x=x[15], y=HalfAdderCarry15, sum=out[15], carry=HalfAdderCarry16);
+}
